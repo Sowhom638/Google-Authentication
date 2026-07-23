@@ -5,10 +5,12 @@ import api from '../api/axios';
 export default function Login() {
   const navigate = useNavigate();
 
-  const handleSuccess = async () => {
+  const handleSuccess = async (credentialResponse) => {
     try {
       // credentialResponse.credential is the Google ID token
-      await api.post('/auth/google');
+      await api.post('/auth/google', {
+        credential: credentialResponse.credential,
+      });
       navigate('/dashboard');
     } catch (err) {
       alert('Login failed');
